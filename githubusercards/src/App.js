@@ -1,33 +1,37 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Axios from 'axios';
+import User from './components/user';
 
 class App extends React.Component{
   constructor(){
     super();
     this.state={
-      user:{}
+      user:{},
+      followers:{}
     };
   }
     componentDidMount(){
-      console.log(this.state.user.length)
       Axios.get('https://api.github.com/users/fakelshub')
       .then(resp=>this.setState({...this.state, user: resp.data}))
-      .catch(er=>console.error(er))
+      .then(()=>Axios.get(this.state.user.followers_url)
+      .then(resp=>this.setState({
+        ...this.state, 
+        followers: resp.data})))
+      .catch(er=>console.error('could not find' + er));
     }
 
   render(){
 
     return(
       <div>
-        <h1>Happy Birthday!</h1>
-        <p>
-          - [ ] Fetch data from the Github API for a Github user<br/>
-          - [ ] Display the user data on the DOM<br/>
-          - [ ] Use class components when you need to hold any state or use any lifecycle methods
-        </p>
-        {!this.state.user ? <>ham</> : 
+        {this.state.user === undefined ? <>loading...</> : 
+        <>
         <>{this.state.user.login}<br>
-        </br>{this.state.user.url}</>} 
+        </br>{this.state.user.url}</> 
+        <User 
+        userdata={this.state.user} 
+        followers={this.state.followers}/>
+        </>}
       </div>
     )
   }
