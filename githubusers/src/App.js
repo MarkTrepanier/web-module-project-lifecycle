@@ -26,8 +26,6 @@ class App extends React.Component{
       <div>
         {this.state.user === undefined ? <>loading...</> : 
         <>
-        <>{this.state.user.login}<br>
-        </br>{this.state.user.url}</> 
         <User userdata={this.state.user} followers={this.state.followers}/>
         </>}
       </div>
