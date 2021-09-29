@@ -7,7 +7,7 @@ class App extends React.Component{
     super();
     this.state={
       user:{},
-      followers:{}
+      followers:[]
     };
   }
     componentDidMount(){
@@ -28,9 +28,7 @@ class App extends React.Component{
         <>
         <>{this.state.user.login}<br>
         </br>{this.state.user.url}</> 
-        <User 
-        userdata={this.state.user} 
-        followers={this.state.followers}/>
+        <User userdata={this.state.user} followers={this.state.followers}/>
         </>}
       </div>
     )

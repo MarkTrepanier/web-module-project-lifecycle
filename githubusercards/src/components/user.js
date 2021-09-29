@@ -2,14 +2,6 @@ import React from "react";
 import Axios from "axios";
 
 class User extends React.Component{
-  state={}
-
-    // componentDidMount(){
-    //     this.props.userdata=== undefined ? console.log('undefined get'):
-    //     Axios.get(this.props.userdata.followers_url)
-    //     .then(resp=>this.setState({...this.state, followers:resp.data}))
-    //     .catch(er=>console.log(er));
-    // }
 
     render(){
         const {userdata, followers}= this.props;
@@ -22,8 +14,9 @@ class User extends React.Component{
                     <p>{userdata.bio}</p>
                     <p>Followers: {userdata.followers}</p>
                     <p>Following: {userdata.following}</p>
+                    <h3>Followers</h3>
                     {followers.map(follower=>{
-                        return(<h3>{follower.login}</h3>);
+                        return(<h4 className='follower' key={follower.id}>{follower.login} {follower.id}</h4>);
                     })}
                 </div>
             </div>
